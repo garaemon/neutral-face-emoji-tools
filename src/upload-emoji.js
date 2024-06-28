@@ -15,15 +15,19 @@ ConcurrencyManager(slackApi, MAX_CONCURRENT_REQUESTS);
 
 const NO_OP = function () {};
 
+function normalizeFileName(fileName) {
+    return fileName.normalize('NFC');
+}
+
 export default function uploadEmoji (file, callback = NO_OP) {
   const { apiToken, versionUid } = getSlackApiData();
   const timestamp = Date.now() / 1000;  
   const version = versionUid ? versionUid.substring(0, 8) : 'noversion';
   const id = uuid.v4();
-  const name = file.name.split('.')[0].toLowerCase();
+  const name = normalizeFileName(file.name.split(".")[0].toLowerCase());
 
   const formData = new FormData();
-  formData.append('name', name);
+  formData.append("name", name);
   formData.append('mode', 'data');
   formData.append('token', apiToken);
   formData.append('image', file);
