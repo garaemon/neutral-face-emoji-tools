@@ -5,15 +5,12 @@ import commonjs from "@rollup/plugin-commonjs";
 import json from "@rollup/plugin-json";
 import globals from "rollup-plugin-node-globals";
 import builtins from "rollup-plugin-node-builtins";
-import css from "rollup-plugin-import-css";
-// import embedCSS from "rollup-plugin-embed-css";
+import postcss from "rollup-plugin-postcss";
 
 const config = {
   input: "src/content.js",
   plugins: [
-    css({
-      /* Options */
-    }),
+    postcss({}),
     svelte({
       dev: true,
     }),
